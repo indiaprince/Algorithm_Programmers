@@ -1,0 +1,12 @@
+SELECT CART_ID FROM 
+(
+    SELECT DISTINCT CART_ID, NAME, 
+            CASE WHEN NAME = 'Yogurt' THEN 1
+                ELSE 0 END AS Y_VAL,
+            CASE WHEN NAME = 'Milk' THEN 1
+                ELSE 0 END AS M_VAL
+    FROM CART_PRODUCTS 
+    ) 
+GROUP BY CART_ID 
+HAVING SUM(Y_VAL)+SUM(M_VAL)=2
+ORDER BY CART_ID
